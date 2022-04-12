@@ -16,9 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pages.urls import pages_patterns
+from profiles.urls import profile_patterns
+from messenger.urls import messenger_patterns
+from django.conf import settings
+
+from web_playground.settings import MEDIA_URL
 
 urlpatterns = [
     path('', include('core.urls')),
     path('pages/', include(pages_patterns)),
     path('admin/', admin.site.urls),
+    # Path de Auth
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
+    # Path de Profiles
+    path('profiles/', include(profile_patterns)),
+    # Path de Messenger
+    path('messenger/', include(messenger_patterns)),
 ]
+
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

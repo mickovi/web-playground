@@ -1,0 +1,22 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+migrations
+__init__.py
+tests.py
+!messenger/tests.py
+asgi.py
+wsgi.py
+.directory
+db.sqlite3
+manage.py
+
+# Visual Studio Code # 
+.vscode/* 
+!.vscode/settings.json 
+!.vscode/tasks.json 
+!.vscode/launch.json 
+!.vscode/extensions.json 
+.history

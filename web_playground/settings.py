@@ -19,6 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-p+u!l#lly2ngbop)9txm*ulj&^vw8jt0#klut3@6osir0f0btx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -27,8 +29,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# Importante colocar registration primero ya que le da prioridad a la autenticacion personalizada
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +41,8 @@ INSTALLED_APPS = [
     'core',
     'pages.apps.PagesConfig',
     'ckeditor',
+    'profiles',
+    'messenger',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +122,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Auth redirects
+# LOGIN_REDIRECT_URL = 'pages:pages'
+LOGOUT_REDIRECT_URL = 'home'
+
+# Emails
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+else:
+    # Aquí hay que configurar un email real para producción
+    pass
+
+# Media
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
